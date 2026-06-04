@@ -1,114 +1,70 @@
-# Object Detection — YOLOv3 / Faster R-CNN / CNN
+# Object-Detection-with-YOLOv3-and-FastAPI
 
-A Python-based object detection project implementing and comparing three major detection architectures: **YOLOv3**, **Faster R-CNN**, and a custom **CNN classifier**, applied to static images using the COCO and VOC datasets.
 
----
+Welcome to the **Object Detection with YOLOv3 and FastAPI** repository! This project showcases the integration of YOLOv3, a powerful object detection algorithm, with FastAPI, a modern web framework for building APIs with Python. The combination of these technologies allows you to create a user-friendly API for real-time object detection in images.
 
-## 📁 Project Structure
+## Table of Contents
 
-```
-object-detection/
-├── main.py               # Entry point — model selection & inference pipeline
-├── YOLO_v3.py            # YOLOv3 detection logic
-├── Faster_R_Cnn.py       # Faster R-CNN detection logic
-├── CNN.py                # Custom CNN classifier
-├── check_modules.py      # Dependency checker
-├── coco.names            # COCO class labels (80 classes)
-├── voc.names             # VOC class labels (20 classes)
-├── voc.cfg               # VOC model config
-├── yolov3.cfg            # YOLOv3 architecture config
-├── requirements.txt      # Python dependencies
-├── images/               # Input images for inference
-└── README.md
-```
+- [Features](#features)
+- [Usage](#usage)
+- [Contribution](#contribution)
+  
+## Features
 
-> ⚠️ **Model weights are not included** due to file size. See [Download Weights](#-download-weights) below.
+- Integration of YOLOv3 for accurate object detection.
+- FastAPI-based API for easy deployment and interaction.
+- Real-time object detection in static images.
+- Customizable confidence and NMS threshold options.
 
----
+## Usage
 
-## ⚙️ Requirements
+Follow the steps below to get started with using the Object Detection API:
 
-- Python 3.8+
-- OpenCV
-- TensorFlow / Keras
-- NumPy
+1. **Clone the Repository:**
+   ```sh
+   git clone https://github.com/mohamedamine99/Object-Detection-with-YOLOv3-and-FastAPI.git
+   ```
+2. **Install Dependencies:**
 
-Install all dependencies:
+   ```sh
+    pip install -r requirements.txt
+   ```
+3. **Download YOLOv3 Weights and COCO labels:**
 
-```bash
-pip install -r requirements.txt
-```
+   Place these files in your working directory.  
+   - [yolov3.cfg](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
+   - [yolov3.weights](https://pjreddie.com/media/files/yolov3.weights)
+   - [coco.names](https://github.com/pjreddie/darknet/blob/master/data/coco.names)
+   
+  
+4. **Run the FastAPI Server:**
+   - **Method 1 :** Run with uvicorn CLI:
+     Activate your environment then run the following command:
+   ```sh
+   uvicorn main:app --host 127.0.0.1 --port 8000
+   ```
+   - **Method 2:** Execute the `main.py` script using either the command-line interface (CLI) or your preferred code editor:
+   
+   ```sh
+   python main.py
+   ```
+5. **Make API Requests**
+      - **Method 1:** Use tools like curl or API clients to make POST requests to the API endpoint for object detection.
 
----
+        **Example :** 
+      Here's an example of how to make a simple API request using curl:
 
-## 📥 Download Weights
+   ```sh
+   curl -X POST -F "file=@image.jpg" http://localhost:8000/detection
+   ```
+   - **Method 2:** Access Swagger UI:
+Open your web browser and navigate to the following URL to interact with your API using Swagger UI:
+    ```sh
+   http://localhost:8000/docs
+   ```
+   Here, you'll find an interactive interface that presents a list of all available API endpoints. You can explore each endpoint's input parameters, send requests directly from the browser, and view the API's responses. This powerful tool simplifies the process of testing and interacting with your FastAPI application.
 
-The following model files must be downloaded separately and placed in the project root:
+## Contribution:
 
-| File | Size | Source |
-|------|------|--------|
-| `yolov3.weights` | ~242 MB | [Official YOLOv3](https://pjreddie.com/media/files/yolov3.weights) |
-| `model.keras` | ~484 KB | Google Drive / Release |
-| `model_V2.keras` | ~14 MB | Google Drive / Release |
-
-> You can also find them in the [Releases](../../releases) section of this repository.
-
----
-
-## 🚀 Usage
-
-Run detection on a static image:
-
-```bash
-python main.py --model yolo --image images/sample.jpg
-python main.py --model faster_rcnn --image images/sample.jpg
-python main.py --model cnn --image images/sample.jpg
-```
-
-### Available arguments
-
-| Argument | Values | Description |
-|----------|--------|-------------|
-| `--model` | `yolo`, `faster_rcnn`, `cnn` | Model to use for detection |
-| `--image` | path/to/image | Input image path |
-| `--conf` | float (default: 0.5) | Confidence threshold |
-| `--output` | path/to/output | Save result image |
-
----
-
-## 🧠 Models Overview
-
-### YOLOv3
-- Single-pass detection, high speed
-- Uses `yolov3.cfg` + `yolov3.weights` + `coco.names`
-- 80 COCO classes
-
-### Faster R-CNN
-- Two-stage detector: Region Proposal Network + classifier
-- Higher accuracy, slower inference
-- Uses `voc.cfg` + `voc.names`
-
-### CNN (Custom)
-- Image classifier based on Keras
-- Trained model saved as `model.keras` / `model_V2.keras`
-- Suitable for single-class or fine-grained classification
-
----
-
-## 📊 Results Comparison
-
-| Model | Speed | Accuracy | Use Case |
-|-------|-------|----------|----------|
-| YOLOv3 | ⚡ Fast | ✅ Good | General detection |
-| Faster R-CNN | 🐢 Slow | 🎯 High | Precision tasks |
-| CNN | ⚡ Fast | ⚠️ Limited | Classification |
-
----
-
-## 🔧 Check Dependencies
-
-```bash
-python check_modules.py
-```
-
----
+Contributions to this repository are welcome! If you find any issues or want to add new features, feel free to open a pull request.
+Let's make object detection with YOLOv3 and FastAPI even more accessible and powerful together!
